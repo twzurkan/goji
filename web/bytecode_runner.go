@@ -1,6 +1,7 @@
 package web
 
 import "net/http"
+import "strings"
 
 type routeMachine struct {
 	sm     stateMachine
@@ -34,7 +35,7 @@ func (rm routeMachine) route(c *C, w http.ResponseWriter, r *http.Request) (meth
 		sm := rm.sm[i].mode
 		if sm&smSetCursor != 0 {
 			si := rm.sm[i].i
-			p = r.URL.Path[si:]
+			p = strings.ToLower(r.URL.Path[si:])
 			i++
 			continue
 		}
